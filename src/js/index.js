@@ -13,7 +13,8 @@ ReactDOM.render(
     <Provider store={store}>
         <Router>
             <div className='main-wrapper'>
-                <Route path="/" component={Main}/>
+                <Route exact path="/" component={Main}/>
+                <Route path="/:id" component={Main}/>
             </div>
         </Router>
     </Provider>

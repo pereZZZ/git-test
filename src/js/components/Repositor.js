@@ -7,21 +7,31 @@ export default class Repositor extends Component {
     constructor(props) {
         super(props);
         this.state={
-            contributors:[]
+            contributors:[],
+            showe:false
         }
 
     }
 
     componentDidMount() {
         fetch(this.props.item.contributors_url)
-          .then(response => response.json())
-          .then(data => {
-            this.setState({contributors:data})
-          });
-        //   console.log(this.state.contributors)
+            .then(response => response.json())
+            .then(data => {
+                this.setState({contributors:data})
+            });
+        // console.log(this.state.contributors)
       }
 
+    showe = () =>{
+        if(this.state.showe==false){
+            this.setState({showe:true})
+        }else{
+            this.setState({showe:false})
+        }
+    }
+
     render() {
+        console.log(this.props.item)
         return (
         <div className='card'>
             <h3>Name of Repositor <span style={{color:"red"}}>{this.props.item.name}</span></h3>
@@ -31,10 +41,12 @@ export default class Repositor extends Component {
                 <button onClick={this.toStory}>Like</button>
             </div>
             <div className='moreinfo'>
-                {this.state.contributors.length<1?<p>Loading</p>:
+                <button onClick={this.showe} >showe more information</button>
+                {this.state.showe==true?this.state.contributors.length<1?<p>Loading</p>:
                 <select>
                     {this.state.contributors.map((item,index)=>{<option></option>})}
-                </select>}
+                </select>:null}
+                <br/>
                 <a href={this.props.item.html_url}>Link to repositori</a>
             </div>
         </div>
