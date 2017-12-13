@@ -5,9 +5,13 @@ import Footer from './Footer';
 import Repositor from './Repositor'
 import {bindActionCreators} from 'redux';
 import {Route, Link} from 'react-router-dom';
-// import {objmsg} from '../actions';
+import {allrepo} from '../actions';
+const mapStateToProps = (state, ownProps) => {return {allrepos:state.allrepo}};
+const mapDispatchToProps = dispatch => ( bindActionCreators({allrepo}, dispatch) );
 
-export default class Main extends Component {
+
+@connect (mapStateToProps,mapDispatchToProps)
+export default class Main extends React.Component {
     constructor(props) {
         super(props);
         this.state={
@@ -16,12 +20,18 @@ export default class Main extends Component {
     }
     
     componentDidMount() {
+        if(this.props.allrepo.length>0){
+            this.state.allrepos=this.props.allrepo;
+        }else{
         fetch('https://api.github.com/repositories')
           .then(response => response.json())
           .then(data => {
-            this.setState({allrepos:data})
-          });
-      }
+                this.props.allrepo(data)
+                this.setState({allrepos:data})
+                console.log("lol")
+            });
+        }
+    }
 
     scrolling = () => {
         window.scrollTo(0,0);
@@ -32,7 +42,6 @@ export default class Main extends Component {
         for(var i=0;i<this.state.allrepos.length/20;i++){
             if(i==0){
                 body[i]=<Link key={i} to={"/"} onClick={this.scrolling}>{i+1}</Link>
-                console.log()
             }else{
                 body[i]=<Link key={i} to={"/"+(i+1)} onClick={this.scrolling}>{i+1}</Link>
             }

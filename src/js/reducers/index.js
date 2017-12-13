@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux';
-import msg from './msg';
+import love from './love';
+import allrepo from './allrepo'
 
 const reducers = combineReducers({
-    msg
+    love,
+    allrepo
 });
 
 export default reducers;

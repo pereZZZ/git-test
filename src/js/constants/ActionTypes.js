@@ -1,2 +1,2 @@
-export const OBJMSG = "OBJMSG";
-export const WRITEMSG = "WRITEMSG";
+export const LOVE = "LOVE";
+export const ALLREPO = "ALLREPO";
