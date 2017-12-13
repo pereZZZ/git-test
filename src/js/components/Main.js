@@ -5,7 +5,7 @@ import Footer from './Footer';
 import Repositor from './Repositor'
 import {bindActionCreators} from 'redux';
 import {Route, Link} from 'react-router-dom';
-import {objmsg} from '../actions';
+// import {objmsg} from '../actions';
 
 export default class Main extends Component {
     constructor(props) {
@@ -22,13 +22,27 @@ export default class Main extends Component {
             this.setState({allrepos:data})
           });
       }
-
+    pages = () =>{
+        var body
+        for(var i=0;i<this.state.allrepos.length/20;i++){
+            if(i==0){
+                body=<Link to={"/"+(i+1)}>{i+1}</Link>"
+            }else{
+                body+=<Link to={"/"+(i+1)}>{i+1}</Link>
+            }
+        }
+        console.log(body)
+        return body
+    }
     render() {
-        console.log(this.state)
+        // console.log(this.state)
         return (
         <div className='container'>
             <Header />
-            {this.state.allrepos.length<1?<p>Loading</p>:this.state.allrepos.map((item,index)=>{return <Repositor key={index} item={item}/>})}
+            <div className="all-repos">
+                {this.state.allrepos.length<1?<p>Loading</p>:this.state.allrepos.slice(0,20).map((item,index)=>{return <Repositor key={index} item={item}/>})}
+            </div>
+            {this.state.allrepos.length<1?<p>Loading</p>:this.pages()}
             <Footer />
         </div>
         )

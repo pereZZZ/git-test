@@ -3,7 +3,7 @@ import * as types from '../constants/ActionTypes'
 const middleware = store => next => action => {
     next(action);
     if(action.type == types.OBJMSG){
-        localStorage.setItem("msg", JSON.stringify(store.getState().msg))
+        // localStorage.setItem("msg", JSON.stringify(store.getState().msg))
     }
     // const data = action.payload;
 //     if(action.type == types.OBJMSG) {

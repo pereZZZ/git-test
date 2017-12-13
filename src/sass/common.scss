@@ -1,8 +1,9 @@
-@import "components/_SignIn";
-@import "components/_Chat";
+
 @import "/components/_Header";
-@import "/components/_Profile";
 @import "/components/_Footer";
+@import "/components/_Main";
+@import "/components/_Repositor";
+
 html {
     font-size: 10px;
     -webkit-tap-highlight-color: rgba(0,0,0,0);
