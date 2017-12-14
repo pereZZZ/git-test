@@ -9,7 +9,8 @@ export default class Main extends React.Component {
     constructor(props) {
         super(props);
         this.state={
-            allrepos:[]
+            allrepos:[],
+            check:null
         }
     }
     
@@ -22,11 +23,10 @@ export default class Main extends React.Component {
     }
 
     sortup = () =>{
-        this.setState({allrepos: this.state.allrepos.sort((item,nextItem)=>{return(item.id < nextItem.id) ? 1 : (item.id > nextItem.id) ? -1 : 0})})
+        this.setState({allrepos: this.state.allrepos.sort((item,nextItem)=>{return(item.id < nextItem.id) ? 1 : (item.id > nextItem.id) ? -1 : 0}), check:"up"})
     }
     sortdown = () =>{
-        this.setState({allrepos: this.state.allrepos.sort((item,nextItem)=>{return(item.id < nextItem.id) ? -1 : (item.id > nextItem.id) ? 1 : 0})})
-        
+        this.setState({allrepos: this.state.allrepos.sort((item,nextItem)=>{return(item.id < nextItem.id) ? -1 : (item.id > nextItem.id) ? 1 : 0}), check:"down"})
     }
     scrolling = () => {
         window.scrollTo(0,0);
@@ -59,13 +59,13 @@ export default class Main extends React.Component {
     }
 
     render() {
-        console.log(this.props)
+        // console.log(this.state.check)
         return (
         <div className='container'>
             {this.props.match.url=="/love"?null:<div className="sortdiv"><p className="sortp">Sort: </p><button onClick={this.sortup} className="sort">up</button><button onClick={this.sortdown} className="sort">down</button></div>}
             <br/>
             <div className="all-repos">
-                {this.state.allrepos.length<1?<p>Loading</p>:this.state.allrepos.slice(0+(this.props.match.url=="/"?0:(this.props.match.params.id-1)*20),20+(this.props.match.url=="/"?0:(this.props.match.params.id-1)*20)).map((item,index)=>{return <Repositor key={index} item={item}/>})}
+                {this.state.allrepos.length<1?<p>Loading</p>:this.state.allrepos.slice(0+(this.props.match.url=="/"?0:(this.props.match.params.id-1)*20),20+(this.props.match.url=="/"?0:(this.props.match.params.id-1)*20)).map((item,index)=>{return <Repositor key={index} item={item} check={this.state.check} contr={item.contributors_url}/>})}
             </div>
             <div className="pages">
                 {this.state.allrepos.length<1?<p>Loading</p>:this.pages().map((item,index)=>{return this.ifpage(item,index)})}

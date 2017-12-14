@@ -4,7 +4,7 @@ import {bindActionCreators} from 'redux';
 import {Route, Link, browserHistory, withRouter} from 'react-router-dom';
 import {love, dellove} from '../actions';
 const mapDispatchToProps = dispatch => ( bindActionCreators({love, dellove}, dispatch) );
-const mapStateToProps = (state, ownProps) => {return {url:ownProps.match, inlove:state.love}};
+const mapStateToProps = (state, ownProps) => {return {url:ownProps.match, inlove:state.love ,check:ownProps.check}};
 
 @connect (mapStateToProps,mapDispatchToProps)
 class Repositor extends React.Component {
@@ -13,7 +13,7 @@ class Repositor extends React.Component {
         this.state={
             contributors:[],
             showe:false,
-            repit:false
+            repit:false,
         }
 
     }
@@ -30,12 +30,19 @@ class Repositor extends React.Component {
         this.state.repit=false;
     }
 
+    componentWillMount(){
+        this.setState({showe:false})
+    }
+
     componentDidMount() {
-        fetch(this.props.item.contributors_url)
-            .then(response => response.json())
-            .then(data => {
-                this.setState({contributors:data})
-            });
+        
+
+            // if(this.props.check == "false"){
+            //     this.setState({check:"false"})
+            // }
+            // if(this.props.check == "true"){
+            //     this.setState({check:"false"})
+            // }
     }
 
     delfromlove = () =>{
@@ -43,7 +50,12 @@ class Repositor extends React.Component {
     }
 
     showe = () =>{
-        console.log(this.state.contributors)
+        fetch(this.props.contr)
+        .then(response => response.json())
+        .then(data => {
+            this.setState({contributors:data})
+        });
+        // console.log(this.state.contributors)
         if(this.state.showe==false){
             this.setState({showe:true})
         }else{
@@ -52,7 +64,7 @@ class Repositor extends React.Component {
     }
 
     render() {
-        
+        console.log(this.props)
         return (
         <div className='card'>
             <h3>Name of Repositor: <span style={{color:"red"}}>{this.props.item.name}</span></h3>
