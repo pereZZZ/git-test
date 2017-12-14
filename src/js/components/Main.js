@@ -21,6 +21,13 @@ export default class Main extends React.Component {
             });
     }
 
+    sortup = () =>{
+        this.setState({allrepos: this.state.allrepos.sort((item,nextItem)=>{return(item.id < nextItem.id) ? 1 : (item.id > nextItem.id) ? -1 : 0})})
+    }
+    sortdown = () =>{
+        this.setState({allrepos: this.state.allrepos.sort((item,nextItem)=>{return(item.id < nextItem.id) ? -1 : (item.id > nextItem.id) ? 1 : 0})})
+        
+    }
     scrolling = () => {
         window.scrollTo(0,0);
     }
@@ -52,8 +59,11 @@ export default class Main extends React.Component {
     }
 
     render() {
+        console.log(this.props)
         return (
         <div className='container'>
+            {this.props.match.url=="/love"?null:<div className="sortdiv"><p className="sortp">Sort: </p><button onClick={this.sortup} className="sort">up</button><button onClick={this.sortdown} className="sort">down</button></div>}
+            <br/>
             <div className="all-repos">
                 {this.state.allrepos.length<1?<p>Loading</p>:this.state.allrepos.slice(0+(this.props.match.url=="/"?0:(this.props.match.params.id-1)*20),20+(this.props.match.url=="/"?0:(this.props.match.params.id-1)*20)).map((item,index)=>{return <Repositor key={index} item={item}/>})}
             </div>

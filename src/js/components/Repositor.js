@@ -43,6 +43,7 @@ class Repositor extends React.Component {
     }
 
     showe = () =>{
+        console.log(this.state.contributors)
         if(this.state.showe==false){
             this.setState({showe:true})
         }else{
@@ -51,7 +52,7 @@ class Repositor extends React.Component {
     }
 
     render() {
-        console.log(this.props.item)
+        
         return (
         <div className='card'>
             <h3>Name of Repositor: <span style={{color:"red"}}>{this.props.item.name}</span></h3>
@@ -65,17 +66,9 @@ class Repositor extends React.Component {
                 {this.props.match.url=="/love"?<button onClick={this.delfromlove}>disLike</button>:<button onClick={this.addtolove}>Like</button>}
             </div>
             <div className='moreinfo'>
-            {this.state.showe==true?this.state.contributors.length<1?<p>Loading</p>:<div className="moreinfodiv">
-                {this.state.contributors.map((item,index)=>{return 
-                <div key={index}>
-                    <img src={item.avatar_url}/>
-                    <p>{item.login}</p>
-                    <a href={item.url}/>
-                    
-                </div>
-                })}</div>:null
-            }
-                <button onClick={this.showe} className="showemore">showe more information</button>
+            {this.state.showe==true?this.state.contributors.length<1?<p>Loading</p>:<div className="moreinfodiv"><h3>Contributors info</h3>
+                {this.state.contributors.map((item,index)=>{return <div key={index} className="contributors"><img src={item.avatar_url}/><p>Contributors: {item.login}</p><a href={item.html_url}>Link to contributors</a></div>})}</div>:null}
+                {this.state.contributors.length<0?null:<button onClick={this.showe} className="showe">showe more information</button>}
             </div>
         </div>
         )
