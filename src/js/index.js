@@ -19,9 +19,9 @@ ReactDOM.render(
                 <Switch>
                     <Route exact path="/" component={Main}/>
                     <Route path="/:id" component={Main}/>
+                    {/* <Route path="*" component={() => <div>Page Not Found</div>}/> */}
                 </Switch>
                 <Route path="/love" component={Love}/>
-                {/* <Route path="*" component={() => <div>Page Not Found</div>}/> */}
                 <Footer />
             </div>
         </Router>
