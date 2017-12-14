@@ -12,9 +12,16 @@ export default class Header extends Component {
         return (
             <header>
                 <h1>Git API</h1>
-                <Link to={"/"}>All repositories</Link>
-                <Link to={"/love"}>love</Link>
-                <Link to={"/abaut"}>abaut repositories</Link>
+                <div className="pagetogo">
+                    <Link to={"/"}>All repositories</Link>
+                </div>
+                <div className="pagetogo">
+                    <Link to={"/love"}>love</Link>
+                </div>
+                <div className="pagetogo">
+                    <Link to={"/abaut"}>about repositories</Link>
+                </div>
+                <hr/>
             </header>
         )
     }

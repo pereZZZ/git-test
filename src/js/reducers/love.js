@@ -7,8 +7,8 @@ export default function category(state = InitialState.love, action) {
     switch(type) {
         case types.LOVE:
             return [...state, payload]
-        // case types.WRITEMSG:
-        //     return 
+        case types.DELLOVE:
+            return state.filter((item, index)=>{return item.id!=payload.id});
         default:
             return state;
     }

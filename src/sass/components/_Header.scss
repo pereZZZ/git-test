@@ -1,6 +1,24 @@
 header{
   background: #121d2c;
-  height: 91px;
+  height: 140px;
+  margin-bottom: 20px;
+  a{
+    text-decoration: none;
+    color:white;
+  }
+  h1{
+    padding: 2%;
+    color: gray;
+  }
+  .pagetogo{
+    float: right;
+    margin-right:5%;
+    font-size: 20px;
+    border: 1px solid gray;
+    background-color: gray; 
+    border-radius: 5px;
+    padding: 2px;  
+  }
   .header{
     padding-top: 18px;
     padding-left: 43px;
@@ -8,31 +26,10 @@ header{
     //display: flex;
     //flex-direction: row;
     //justify-content: space-between;
-
-    .logo{
-      display: block;
-      width: 80px;
-      height: 58px;
-      //-webkit-background-size: 100%;
-      //background-size: 100%;
-    }
-    .profile-block{
-      .profile-img{
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        background: #e1e1e1;
-        margin-bottom: 8px;
-      }
-      .my-profile{
-        //display: block;
-        text-decoration: none;
-        margin-left: -10px;
-        font-size: 13px;
-        font-family: 'Roboto', sans-serif;
-        color: #00ffff;
-      }
-    }
+    
+  }
+  hr{
+    margin-top: 45px;
   }
 
 }
