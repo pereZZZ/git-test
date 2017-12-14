@@ -1,27 +1,25 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
-import Header from './Header';
-import Footer from './Footer';
 import Repositor from './Repositor'
 import {bindActionCreators} from 'redux';
-import {Route, Link} from 'react-router-dom';
-const mapStateToProps = (state, ownProps) => {return {allrepos:state.allrepo}};
-const mapDispatchToProps = dispatch => ( bindActionCreators({love}, dispatch) );
+import {Route, Link, browserHistory, withRouter} from 'react-router-dom';
+const mapStateToProps = (state, ownProps) => {return {love:state.love}};
 
-@connect (mapStateToProps,mapDispatchToProps)
-export default class Main extends Component {
+@connect (mapStateToProps,null)
+export default class Love extends React.Component {
     constructor(props) {
         super(props);
+        this.state={
+            love:this.props.love
+        }
     }
     
     render() {
         return (
         <div className='container'>
-            <Header />
             <div className="all-repos">
-                
+                {this.props.love.map((item,index)=>{return <Repositor key={index} item={item} />})}
             </div>
-            <Footer />
         </div>
         )
     }

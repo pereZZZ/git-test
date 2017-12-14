@@ -1,16 +1,10 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
-import Header from './Header';
-import Footer from './Footer';
 import Repositor from './Repositor'
 import {bindActionCreators} from 'redux';
-import {Route, Link} from 'react-router-dom';
+import {Route, Link, withRouter} from 'react-router-dom';
 import {allrepo} from '../actions';
-const mapStateToProps = (state, ownProps) => {return {allrepos:state.allrepo}};
-const mapDispatchToProps = dispatch => ( bindActionCreators({allrepo}, dispatch) );
 
-
-@connect (mapStateToProps,mapDispatchToProps)
 export default class Main extends React.Component {
     constructor(props) {
         super(props);
@@ -20,17 +14,11 @@ export default class Main extends React.Component {
     }
     
     componentDidMount() {
-        if(this.props.allrepo.length>0){
-            this.state.allrepos=this.props.allrepo;
-        }else{
         fetch('https://api.github.com/repositories')
           .then(response => response.json())
           .then(data => {
-                this.props.allrepo(data)
                 this.setState({allrepos:data})
-                console.log("lol")
             });
-        }
     }
 
     scrolling = () => {
@@ -50,6 +38,7 @@ export default class Main extends React.Component {
     }
 
     ifpage = (item,index) =>{
+        if(this.props.match.url=="/love"){return null}else{
         if(this.props.match.url=="/"){
             if(index==0){
                 
@@ -60,16 +49,17 @@ export default class Main extends React.Component {
             return item
         }
     }
+    }
 
     render() {
         return (
         <div className='container'>
-            <Header />
             <div className="all-repos">
                 {this.state.allrepos.length<1?<p>Loading</p>:this.state.allrepos.slice(0+(this.props.match.url=="/"?0:(this.props.match.params.id-1)*20),20+(this.props.match.url=="/"?0:(this.props.match.params.id-1)*20)).map((item,index)=>{return <Repositor key={index} item={item}/>})}
             </div>
-            {this.state.allrepos.length<1?<p>Loading</p>:this.pages().map((item,index)=>{return this.ifpage(item,index)})}
-            <Footer />
+            <div className="pages">
+                {this.state.allrepos.length<1?<p>Loading</p>:this.pages().map((item,index)=>{return this.ifpage(item,index)})}
+            </div>
         </div>
         )
     }
